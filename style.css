@@ -1,0 +1,512 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  --testBorder: 0; /* 1 - on, 0 - off */
+  --durationWindowTime: 3s; /* Czas powiększania i zmniejszania okna WindowTime */
+}
+
+body {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(
+    135deg,
+    rgba(244, 232, 126, 0.9),
+    rgba(105, 181, 120, 0.9)
+  );
+}
+
+.windowTime {
+  margin: 15vh auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  width: 700px;
+  height: 400px;
+  background: rgba(58, 125, 68, 1);
+  /* box-shadow: 0px 0px 20px 0px rgb(57, 57, 57, 1); */
+  border-radius: 40px;
+  transition: 1s;
+  overflow: hidden;
+}
+
+/* Pełny widok okna WindowTime */
+.increaseSizeWindowTime {
+  animation: increaseSize var(--durationWindowTime) forwards;
+}
+.decreaseSizeWindowTime {
+  animation: decreaseSize var(--durationWindowTime);
+}
+
+@keyframes increaseSize {
+  0% {
+    height: 400px;
+    margin-top: 15vh;
+  }
+  100% {
+    height: 750px;
+    margin-top: 2vh;
+  }
+}
+@keyframes decreaseSize {
+  0% {
+    height: 750px;
+    margin-top: 2vh;
+  }
+  100% {
+    height: 400px;
+    margin-top: 15vh;
+  }
+}
+
+/* **************************  upperWindowTime ****************************/
+.upperWindowTime {
+  margin-top: 50px;
+  border: 1px dotted rgba(0, 0, 150, var(--testBorder));
+}
+
+.windowTime.increaseSizeWindowTime .upperWindowTime {
+  animation: decreaseMarginUpperWindowTime var(--durationWindowTime) forwards;
+}
+.windowTime.decreaseSizeWindowTime .upperWindowTime {
+  animation: increaseMarginUpperWindowTime var(--durationWindowTime);
+}
+@keyframes decreaseMarginUpperWindowTime {
+  to {
+    margin-top: 10px;
+  }
+}
+@keyframes increaseMarginUpperWindowTime {
+  from {
+    margin-top: 10px;
+  }
+  to {
+    margin-top: 50px;
+  }
+}
+.timeDiv {
+  width: 300px;
+  height: 150px;
+  border: 1px solid rgba(83, 35, 35, var(--testBorder));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.actualTimeDiv {
+}
+
+span.actualMin {
+  font-size: 80px;
+  font-weight: bold;
+  letter-spacing: 10px;
+  color: white;
+}
+span.colonTime {
+  font-size: 70px;
+  font-weight: bold;
+  letter-spacing: 4px;
+  color: white;
+}
+span.actualSek {
+  font-size: 70px;
+  font-weight: bold;
+  letter-spacing: 10px;
+  color: white;
+}
+
+.buttonStartDiv {
+  position: relative;
+  width: 300px;
+  height: 150px;
+  margin-top: 30px;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+  border: 1px solid rgba(83, 35, 35, var(--testBorder));
+}
+
+/* Przycisk start i pausa pomiaru czasu różnią się tylko tłem i tekstem */
+.startPauseBTN {
+  position: relative;
+  z-index: 2;
+  width: 200px;
+  height: 50px;
+  display: block;
+  margin: 10px auto;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 25px;
+  letter-spacing: 2px;
+  text-align: center;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.startTimeBTN {
+  background-color: #ff8552;
+}
+.pauseTimeBTN {
+  background-color: #69b578;
+}
+
+.startTimeBTN:hover {
+  background-color: #c45c2f;
+}
+
+.resetBTN {
+  /* z-index: 1; */
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  transform: translate(-50%);
+  width: 150px;
+  height: 40px;
+  /* display: block; */
+  /* margin: 10px auto; */
+  cursor: pointer;
+  font-size: 20px;
+  letter-spacing: 1px;
+  text-align: center;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  background-color: #69b578;
+  transition: 0.3s;
+  animation: moeveResetBTNOn 0.7s both;
+}
+
+.resetBTN0ff {
+  animation: moveResetBTNOff 0.5s both; /* aniamcaj chowania przysiku */
+}
+
+/* animowany symbol pauzy */
+.iconPause {
+  position: absolute;
+  display: flex;
+  left: 70px;
+  top: 20px;
+  /* transform: translate(-50%); */
+  scale: 0;
+  z-index: 2;
+}
+
+.iconPause.show {
+  scale: 1;
+}
+
+.recPause {
+  width: 5px;
+  height: 22px;
+  border-radius: 5px;
+  margin: 4px;
+  background-color: white;
+  animation: iconPause 1.5s linear infinite both;
+}
+
+.barTimeDiv {
+  position: relative;
+}
+
+.sign {
+  position: absolute;
+  left: 0;
+  transform: translate(-50%);
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #69b578;
+  color: white;
+  font-size: 35px;
+  font-weight: 900;
+  text-align: center;
+  line-height: 35px;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 1;
+}
+.minusTime {
+  animation: minusTimeMove 1s both;
+  line-height: 27px;
+}
+.plusTime {
+  animation: plusTimeMove 1s both;
+}
+
+.barOutside {
+  position: absolute;
+  left: 0;
+  top: 7.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translate(-50%);
+  width: 0px;
+  height: 20px;
+  background-color: #69b578;
+  animation: barOutsaidStretch 0.6s 0.4s both;
+}
+
+.barInside {
+  /* position: absolute;
+  left: 0; */
+  /* top: 14px; */
+  display: flex;
+  justify-content: end;
+  /* transform: translate(-50%); */
+  height: 10px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  overflow: hidden;
+  animation: barInsaidStretch 0.6s 0.4s both;
+}
+
+.barProgres {
+  height: 100%;
+  width: 100%;
+  border-radius: 2px;
+  background-color: #ff8552;
+}
+.wrapBtnDailyStatic {
+}
+
+/********************   lowerWindowTime   ******************** */
+.lowerWindowTime {
+  height: 300px;
+  width: 700px;
+  display: grid;
+  grid-template-rows: 1fr 80px 1fr;
+  border: 1px dotted rgba(0, 0, 150, var(--testBorder));
+  flex-grow: 1;
+}
+.aboveTimeLine {
+}
+.timeLine {
+  width: 650px;
+  height: 50px;
+  position: relative;
+  margin: 0 auto;
+}
+.hourLabel {
+  margin-top: 5px;
+}
+.timeLine span {
+  color: white;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.timeLine span:nth-of-type(2) {
+  position: absolute;
+  left: 33%;
+}
+.timeLine span:nth-of-type(3) {
+  position: absolute;
+  left: 66%;
+}
+.timeLine span:nth-of-type(4) {
+  position: absolute;
+  right: 0%;
+}
+
+/******************* Przycisk rozszerzający Window Time  *********************/
+.btnDailyStatic {
+  position: relative;
+  margin-top: 20px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0px 0px 10px 0px rgb(57, 57, 57, 1);
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+}
+
+.btnDailyStatic:hover {
+  background: #000;
+  animation: moveBTNDownUp 1.5s infinite;
+}
+
+.arrowDown {
+  color: white;
+  font-size: 20px;
+}
+
+/* Jesli WindowTime jest powiększone obryć strząłki i przesuwaj wprzycig do góry gdy hover */
+.windowTime.increaseSizeWindowTime .arrowDown {
+  transform: rotate(180deg);
+}
+.windowTime.increaseSizeWindowTime .btnDailyStatic:hover {
+  animation: moveBTNUpDown 1.5s infinite;
+  background: rgb(189, 161, 5);
+}
+
+@keyframes moveBTNDownUp {
+  0%,
+  20%,
+  40%,
+  100% {
+    bottom: 0px;
+  }
+  10%,
+  30% {
+    bottom: -5px;
+  }
+}
+@keyframes moveBTNUpDown {
+  0%,
+  20%,
+  40%,
+  100% {
+    bottom: 0px;
+  }
+  10%,
+  30% {
+    bottom: 50px;
+  }
+}
+
+@keyframes moeveResetBTNOn {
+  0% {
+    top: 20px;
+  }
+
+  40% {
+    top: 110px;
+  }
+  60% {
+    top: 80px;
+  }
+  80% {
+    top: 100px;
+  }
+
+  100% {
+    top: 90px;
+  }
+}
+
+@keyframes moveResetBTNOff {
+  0% {
+    top: 90px;
+  }
+  70% {
+    top: 120px;
+  }
+  100% {
+    top: 20px;
+  }
+}
+
+@keyframes iconPause {
+  0% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.3;
+  }
+  100% {
+    scale: 1;
+  }
+}
+
+@keyframes minusTimeMove {
+  0% {
+    scale: 0;
+    transform: translate(-50%);
+  }
+
+  20% {
+    scale: 1.5;
+    transform: translate(-50%);
+  }
+
+  30% {
+    scale: 0.8;
+    transform: translate(-50%);
+  }
+  40% {
+    scale: 1;
+    left: 0;
+    transform: translate(-50%);
+  }
+  100% {
+    transform: translate(-50%);
+    scale: 1;
+    left: 100px;
+  }
+}
+@keyframes plusTimeMove {
+  0% {
+    scale: 0;
+    transform: translate(-50%);
+  }
+
+  20% {
+    scale: 1.5;
+    transform: translate(-50%);
+  }
+
+  30% {
+    scale: 0.8;
+    transform: translate(-50%);
+  }
+  40% {
+    scale: 1;
+    left: 0;
+  }
+  100% {
+    scale: 1;
+    left: -101px;
+  }
+}
+
+@keyframes barOutsaidStretch {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 180px;
+  }
+}
+@keyframes barInsaidStretch {
+  0% {
+    width: 0;
+    padding: 0px;
+  }
+  100% {
+    padding: 2px;
+    width: 160px;
+  }
+}
+
+span.ghost {
+  position: absolute;
+  background-color: white;
+  animation: show 0.6s linear;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+@keyframes show {
+  0% {
+    width: 0px;
+    height: 0px;
+    opacity: 0.5;
+  }
+  100% {
+    width: 100px;
+    height: 100px;
+    opacity: 0;
+  }
+}

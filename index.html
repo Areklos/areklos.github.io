@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- <section class="windowTime increaseSizeWindowTime"> -->
+    <section class="windowTime">
+      <section class="upperWindowTime">
+        <div class="timeDiv">
+          <div class="actualTimeDiv">
+            <span class="actualMin">10</span>
+            <span class="colonTime">:</span>
+            <span class="actualSek">13</span>
+          </div>
+          <div class="barTimeDiv">
+            <div class="plusTime sign">+</div>
+            <div class="minusTime sign">-</div>
+            <div class="barOutside">
+              <div class="barInside">
+                <div class="barProgres"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="buttonStartDiv">
+          <button class="startPauseBTN startTimeBTN">Start nauki</button>
+          <div class="iconPause">
+            <div class="recPause"></div>
+            <div class="recPause"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lowerWindowTime">
+        <div class="aboveTimeLine">nad</div>
+        <div class="timeLine">
+          <svg width="650" height="5">
+            <rect width="650" height="5" fill="white" rx="5" ry="5" />
+          </svg>
+          <div class="hourLabel">
+            <span>8</span>
+            <span>12</span>
+            <span>16</span>
+            <span>20</span>
+          </div>
+        </div>
+        <div class="belowTimeLine">pod</div>
+      </section>
+    </section>
+
+    <div class="btnDailyStatic">
+      <span class="arrowDown firstArrow">&or;</span>
+      <span class="arrowDown secondArrow">&or;</span>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
